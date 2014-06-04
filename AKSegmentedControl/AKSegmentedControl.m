@@ -172,7 +172,12 @@ static CGFloat const kAKButtonSeparatorWidth = 1.0;
     
     [_buttonsArray enumerateObjectsUsingBlock:^(UIButton *button, NSUInteger idx, BOOL *stop) {
         [self addSubview:button];
-        [button addTarget:self action:@selector(segmentButtonPressed:) forControlEvents:UIControlEventTouchDown];
+		if (_segmentedControlMode == AKSegmentedControlModeButton) {
+			[button addTarget:self action:@selector(segmentButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+		}
+		else {
+			[button addTarget:self action:@selector(segmentButtonPressed:) forControlEvents:UIControlEventTouchDown];
+		}
         [button setTag:idx];
     }];
     
